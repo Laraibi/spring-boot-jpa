@@ -44,7 +44,7 @@ public class StudentController {
     @PutMapping("/{id}")
     ResponseEntity<Student> update(@RequestBody Student student, @PathVariable("id") Long ID) {
         Optional<Student> oldStudent = this.studentRepo.findById(ID);
-
+        System.out.println(student);
         if (oldStudent.isPresent()) {
             Student theStudent = oldStudent.get();
             if (student.getEmail() != null) {
@@ -56,7 +56,9 @@ public class StudentController {
             if (student.getDateOfBirth() != null) {
                 theStudent.setDateOfBirth(student.getDateOfBirth());
             }
-
+            if(student.getClasse()!=null){
+                theStudent.setClasse(student.getClasse());
+            }
             this.studentRepo.save(theStudent);
             return ResponseEntity.ok(theStudent);
         } else {
